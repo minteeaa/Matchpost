@@ -1,0 +1,30 @@
+{
+  "name": "xestrabot",
+  "version": "1.0.0",
+  "description": "The XestraUHC discord bot.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XestraUHC/XestraBot.git"
+  },
+  "author": "Zetari",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/XestraUHC/XestraBot/issues"
+  },
+  "homepage": "https://github.com/XestraUHC/XestraBot#readme",
+  "dependencies": {
+    "date-and-time": "^0.6.3",
+    "discord.js": "^11.4.2",
+    "dotenv": "^6.2.0",
+    "enmap": "^4.7.0",
+    "fs": "0.0.1-security",
+    "got": "^9.3.2",
+    "quick.db": "^7.0.0-b16",
+    "randomcolor": "^0.5.3",
+    "winston": "^3.1.0"
+  }
+}
