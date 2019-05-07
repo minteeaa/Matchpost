@@ -4,4 +4,4 @@
 # Useful Links
 
 - [Support Server](https://discord.gg/xraYxJt)
-- [docs.zetari.xyz](http://docs.zetari.xyz/matchpost)
+- [Docs](http://docs.zetari.xyz/matchpost)

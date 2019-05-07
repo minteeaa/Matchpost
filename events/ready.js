@@ -38,10 +38,6 @@ exports.run = (bot) => {
       'type': type
     })
   }
-  let prefix = db.get('prefix')
-  if (!prefix) {
-    prefix = 'm!'
-  }
   bot.pingHosts = function () {
     logger.log('info', 'Pinging hosts.uhc.gg API to refresh and sync...');
     (async () => {
@@ -130,7 +126,7 @@ exports.run = (bot) => {
                           .addField('Scenario(s)', rj[x].scenarios.toString().replace(/,/gi, ', '))
                           .setFooter(`u/${rj[x].author}`)
                         if (db.get(`mentionRole_${pL[u]}`) !== null) {
-                          srv.channels.get(db.get(`postChannel_${pL[u]}`)).send((`<@&${db.get(`mentionRole_${pL[u]}`)}> (Use \`${prefix}togglealerts\` to toggle match post alerts)`))
+                          srv.channels.get(db.get(`postChannel_${pL[u]}`)).send((`<@&${db.get(`mentionRole_${pL[u]}`)}> (Use the \`togglealerts\` command to toggle match post alerts)`))
                         }
                         srv.channels.get(db.get(`postChannel_${pL[u]}`)).send({ embed })
                         db.set(`posted_${rj[x].id}_${srv.id}`, true)
