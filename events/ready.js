@@ -71,10 +71,10 @@ exports.run = (bot) => {
                   )
                   const pL = db.get(`serverList_${rj[x].address.replace('.', '-')}`)
                   for (let u = 0; u <= pL.length; u++) {
-                    logger.log('info', `Looping through discord post servers (${u})`)
+                    logger.log('info', `Looping through discord post servers (#${u + 1})`)
                     const srv = bot.guilds.get(pL[u])
                     if (db.get(`postChannel_${pL[u]}`) !== null) {
-                      logger.log('info', `Server (${u}) has post channel`)
+                      logger.log('info', `Server (#${u + 1}) has post channel`)
                       if (db.get(`posted_${rj[x].id}_${srv.id}`) === true) {
                         logger.log('info', 'Match is already posted.')
                         if (rj[x].removed === true) {
@@ -98,6 +98,12 @@ exports.run = (bot) => {
                           ts = 'FFA'
                         } else if (rj[x].teams === 'rvb') {
                           ts = 'Red vs. Blue'
+                        } else if (rj[x].teams === 'mystery') {
+                          if (rj[x].size === 0) {
+                              ts = `Mystery ToX`
+                          } else if (rj[x].size > 0) {
+                              ts = `Mystery To${rj[x].size}`
+                          }
                         } else if (rj[x].teams === 'market') {
                           ts = 'Slave Market'
                         } else if (rj[x].teams !== 'ffa') {

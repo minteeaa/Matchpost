@@ -18,7 +18,6 @@ exports.run = (bot, message, args, func) => {
 function cGL (message, args, func) {
   const sL = db.get(`serverList_${args[0].replace('.', '-')}`)
   if (!sL) {
-    console.log(message.guild.id)
     db.push(`serverList_${args[0].replace('.', '-')}`, message.guild.id)
     func.embed(message.channel, 'The server was successfully added.')
     return
