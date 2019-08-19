@@ -124,7 +124,11 @@ exports.run = (bot) => {
                         } else {
                           hn = rj[x].hostingName
                         }
-                        embed.setAuthor(`${hn}'s #${rj[x].count}`)
+                        if (rj[x].tournament == true) {
+                          embed.setAuthor(`${hn}'s #${rj[x].count} [Tournament]`)
+                        } else {
+                          embed.setAuthor(`${hn}'s #${rj[x].count}`)
+                        }
                           .setColor(cl)
                           .addField('Team Size', ts, true)
                           .addField('Slots', rj[x].slots, true)
