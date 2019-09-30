@@ -124,11 +124,7 @@ exports.run = (bot) => {
                         } else {
                           hn = rj[x].hostingName
                         }
-                        if (rj[x].tournament == true) {
-                          embed.setAuthor(`${hn}'s #${rj[x].count} [Tournament]`)
-                        } else {
-                          embed.setAuthor(`${hn}'s #${rj[x].count}`)
-                        }
+                        embed.setAuthor(`${hn}'s #${rj[x].count}`)
                           .setColor(cl)
                           .addField('Team Size', ts, true)
                           .addField('Slots', rj[x].slots, true)
@@ -138,7 +134,7 @@ exports.run = (bot) => {
                           .addField('Scenario(s)', rj[x].scenarios.toString().replace(/,/gi, ', '))
                           .setFooter(`u/${rj[x].author}`)
                         if (db.get(`mentionRole_${pL[u]}`) !== null) {
-                          srv.channels.get(db.get(`postChannel_${pL[u]}`)).send((`<@&${db.get(`mentionRole_${pL[u]}`)}> (Use \`${db.get(`prefix_${pL[u]}togglealerts\` to toggle match post alerts)`))
+                          srv.channels.get(db.get(`postChannel_${pL[u]}`)).send((`<@&${db.get(`mentionRole_${pL[u]}`)}> (Use \`${db.get(`prefix_${pL[u]}`)}togglealerts\` to toggle match post alerts)`))
                         }
                         srv.channels.get(db.get(`postChannel_${pL[u]}`)).send({ embed })
                         db.set(`posted_${rj[x].id}_${srv.id}`, true)
