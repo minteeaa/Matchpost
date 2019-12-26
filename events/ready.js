@@ -124,6 +124,8 @@ exports.run = (bot) => {
                         } else {
                           hn = rj[x].hostingName
                         }
+                        let r = message.guild.roles.get(db.get(`mentionRole_${pL[u]}`))
+                        r.edit({mentionable: true})
                         embed.setAuthor(`${hn}'s #${rj[x].count}`)
                           .setColor(cl)
                           .addField('Team Size', ts, true)
@@ -135,6 +137,7 @@ exports.run = (bot) => {
                           .setFooter(`u/${rj[x].author}`)
                         if (db.get(`mentionRole_${pL[u]}`) !== null) {
                           srv.channels.get(db.get(`postChannel_${pL[u]}`)).send((`<@&${db.get(`mentionRole_${pL[u]}`)}> (Use the \`togglealerts\` command to toggle match post alerts)`))
+                          r.edit({mentionable: false})
                         }
                         srv.channels.get(db.get(`postChannel_${pL[u]}`)).send({ embed })
                         db.set(`posted_${rj[x].id}_${srv.id}`, true)
