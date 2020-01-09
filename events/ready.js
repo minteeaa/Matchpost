@@ -121,7 +121,7 @@ exports.run = (bot) => {
                         } else if (rj[x].teams === 'rvb') {
                           ts = 'Red vs. Blue'
                         } else if (rj[x].teams === 'custom') {
-                          ts = '${rj[x].customStyle}'                          
+                          ts = `${rj[x].customStyle}`
                         } else if (rj[x].teams === 'mystery') {
                           if (rj[x].size === 0) {
                             ts = 'Mystery ToX'
