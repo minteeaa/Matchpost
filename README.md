@@ -4,4 +4,4 @@
 # Useful Links
 
 - [Support Server](https://discord.gg/xraYxJt)
-- Docs - currently unavailable
+- [Docs](https://docs.mintea.pw/)
