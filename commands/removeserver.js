@@ -1,20 +1,19 @@
 const db = require('quick.db')
 exports.run = (bot, message, args, func) => {
   if (!message.member.hasPermission('ADMINISTRATOR')) return func.embed(message.channel, 'You require a role with the permission `Administrator` to use that.')
-  if (!args[0]) {
-    return func.embed(message.channel, 'No args specfied.')
-  }
-  if (!db.get(`serverList_${args[0].replace('.', '-')}`)) return func.embed(message.channel, 'Not a valid server.')
-  if (db.get(`serverList_${args[0].replace('.', '-')}`).includes(message.guild.id)) {
-    let nE = removeA(db.get(`serverList_${args[0].replace('.', '-')}`), message.guild.id)
-    db.set(`serverList_${args[0].replace('.', '-')}`, nE)
-    func.embed(message.channel, 'Removed server successfully.')
-    if (db.get(`serverList_${args[0].replace('.', '-')}`).length === 0) {
+  if (!args[0]) return func.embed(message.channel, 'No args specfied.')
+  else if (!db.get(`${args[0].replace(/\./gi, '%').replace(/:/gi, '$')}.discordServers`)) return func.embed(message.channel, 'Not a valid server.')
+  let srvg = db.get(`${args[0].replace(/\./gi, '%').replace(/:/gi, '$')}.discordServers`)
+  if (srvg.includes(message.guild.id)) {
+    let nE = removeA(db.get(`${args[0].replace(/\./gi, '%').replace(/:/gi, '$')}.discordServers`), message.guild.id)
+    db.set(`${args[0].replace(/\./gi, '%').replace(/:/gi, '$')}.discordServers`, nE)
+    func.embed(message.channel, `Removed ${args[0]} from the post list of \`${message.guild.id}\`.`)
+    if (db.get(`${args[0].replace(/\./gi, '%').replace(/:/gi, '$')}.discordServers`).length === 0) {
       let nnE = removeA(db.get('postServers'), args[0])
       db.set('postServers', nnE)
     }
-  } else if (!db.get(`serverList_${args[0].replace('.', '-')}`).includes(message.guild.id)) {
-    func.embed(message.channel, 'Server is not on the server list.')
+  } else if (!srvg.includes(message.guild.id)) {
+    func.embed(message.channel, `Server is not on the post list of \`${message.guild.id}\`.`)
   }
 }
 
