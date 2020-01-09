@@ -5,16 +5,15 @@ exports.run = (bot, message, args, func) => {
     return func.embed(message.channel, 'No args specfied.')
   }
   if (args[0] === 'clear') {
-    db.delete(`postChannel_${message.guild.id}`)
-    func.embed(message.channel, 'Removed posting channel. Matches will not be posted.')
+    db.delete(`${message.guild.id}.postChannel`)
+    return func.embed(message.channel, 'Removed posting channel. Matches will not be posted.')
   }
   if (!message.mentions.channels.first()) {
-    func.embed(message.channel, 'No valid channel provided.')
-    return
+    return func.embed(message.channel, 'No valid channel provided.')
   }
   let nc = message.mentions.channels.first().id
-  db.set(`postChannel_${message.guild.id}`, nc)
-  func.embed(message.channel, `Set the posting channel to <#${nc}>`)
+  db.set(`${message.guild.id}.postChannel`, nc)
+  return func.embed(message.channel, `Set the posting channel to <#${nc}>`)
 }
 
 exports.conf = {
