@@ -188,6 +188,6 @@ exports.run = (bot) => {
       }
     })()
   }
-  setInterval(() => bot.pingHosts(), 10000)
+  setInterval(() => bot.pingHosts(), 60000)
   setInterval(() => bot.changeStatus(), 60000)
 }
