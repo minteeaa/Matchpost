@@ -1,3 +1,5 @@
+const { add } = require('quick.db')
+
 exports.run = (bot) => {
   const got = require('got')
   const date = require('date-and-time')
@@ -54,6 +56,13 @@ exports.run = (bot) => {
     })
   }
 
+  function addZero(i) {
+    if (i < 10) {
+      i = "0" + i;
+    }
+    return i;
+  }
+
   bot.pingHosts = function () {
     logger.log('info', 'Pinging hosts.uhc.gg API to refresh and sync...');
     (async () => {
@@ -73,7 +82,7 @@ exports.run = (bot) => {
         for (const x in rj) {
           if (c === 0) {
             const syncrj = new Date(rj[x].opens)
-            const dd = syncrj.getUTCHours() + ':' + syncrj.getUTCMinutes()
+            const dd = addZero(syncrj.getUTCHours()) + ':' + addZero(syncrj.getUTCMinutes())
             if (sync15 >= syncrj && syncrj >= sync) {
               logger.log('info', `Match found within 15 minutes of start. (ID ${rj[x].id})`)
               if (db.get('postServers') == null) return logger.log('info', 'postServers is empty. :thinking:')
@@ -179,6 +188,6 @@ exports.run = (bot) => {
       }
     })()
   }
-  setInterval(() => bot.pingHosts(), 60000)
+  setInterval(() => bot.pingHosts(), 10000)
   setInterval(() => bot.changeStatus(), 60000)
 }
