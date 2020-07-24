@@ -67,6 +67,11 @@ exports.run = (bot, message, args, func) => {
             value: '[Host Application](https://www.reddit.com/r/UHCHosts/wiki/host_application)',
             inline: false
           }
+          {
+            name: '\u200b',
+            value: '[Hosting Rules](https://www.reddit.com/r/UHCHosts/wiki/hosting_rules)',
+            inline: false
+          }
         ],
         timestamp: new Date(),
         footer: {
