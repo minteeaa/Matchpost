@@ -50,7 +50,6 @@ exports.run = (bot, message, args, func) => {
       description: 'Click to open, right click to copy.'
     }
   }
-  console.log(embed)
   if (!args[0]) {
     embed.embed.title = 'Links'
     embed.embed.fields = ubll.concat(hostl)
