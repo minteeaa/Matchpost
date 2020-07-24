@@ -1,5 +1,3 @@
-const { add } = require('quick.db')
-
 exports.run = (bot) => {
   const got = require('got')
   const date = require('date-and-time')
@@ -56,11 +54,11 @@ exports.run = (bot) => {
     })
   }
 
-  function addZero(i) {
+  function addZero (i) {
     if (i < 10) {
-      i = "0" + i;
+      i = '0' + i
     }
-    return i;
+    return i
   }
 
   bot.pingHosts = function () {
@@ -162,7 +160,9 @@ exports.run = (bot) => {
                           .addField('Scenario(s)', rj[x].scenarios.toString().replace(/,/gi, ', '))
                           .setFooter(`u/${rj[x].author}`)
                         if (db.get(`${pL[u]}.notifyRole`) != null) {
-                          srv.channels.get(db.get(`${pL[u]}.postChannel`)).send((`<@&${db.get(`${pL[u]}.notifyRole`)}> (Use the \`${db.get(`prefix_${pL[u]}`)}togglealerts\` command to toggle match post alerts)`))
+                          let prefixs = db.get(`prefix_${pL[u]}`)
+                          if (!prefixs) { prefixs = 'm!' }
+                          srv.channels.get(db.get(`${pL[u]}.postChannel`)).send((`<@&${db.get(`${pL[u]}.notifyRole`)}> (Use the \`${prefixs}togglealerts\` command to toggle match post alerts)`))
                         }
                         srv.channels.get(db.get(`${pL[u]}.postChannel`)).send({
                           embed
