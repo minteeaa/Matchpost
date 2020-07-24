@@ -29,6 +29,20 @@ exports.run = (bot) => {
    3 = Watching
   */
 
+  function removeA (arr) {
+    let what
+    const a = arguments
+    let L = a.length
+    let ax
+    while (L > 1 && arr.length) {
+      what = a[--L]
+      while ((ax = arr.indexOf(what)) !== -1) {
+        arr.splice(ax, 1)
+      }
+    }
+    return arr
+  }
+
   const statuses = [{
     type: 0,
     name: 'on hosts.uhc.gg'
@@ -102,8 +116,12 @@ exports.run = (bot) => {
                   )
                   const pL = db.get(`${variableIp.replace(/\./gi, '%').replace(/:/gi, '$')}.discordServers`)
                   for (let u = 0; u < pL.length; u++) {
-                    logger.log('info', `Looping through discord post servers (#${u + 1})`)
+                    logger.log('info', `Looping through discord post servers (#${u + 1} - ${pL[u]})`)
                     const srv = bot.guilds.get(pL[u])
+                    if (srv.id == null) {
+                      db.set(`${variableIp.replace(/\./gi, '%').replace(/:/gi, '$')}.discordServers`, removeA(await pL, pL[u]))
+                      logger.log('info', `Server does not exist, removing from discordServers array for ${variableIp}`)
+                    }
                     if (db.get(`${srv.id}.postChannel`) != null) {
                       logger.log('info', `Server (#${u + 1}) has post channel`)
                       if (db.get(`${srv.id}.${rj[x].id}.posted`) === true) {

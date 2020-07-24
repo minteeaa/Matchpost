@@ -11,7 +11,7 @@ exports.run = (bot, message, args, func) => {
   if (!message.mentions.channels.first()) {
     return func.embed(message.channel, 'No valid channel provided.')
   }
-  let nc = message.mentions.channels.first().id
+  const nc = message.mentions.channels.first().id
   db.set(`${message.guild.id}.postChannel`, nc)
   return func.embed(message.channel, `Set the posting channel to <#${nc}>`)
 }
