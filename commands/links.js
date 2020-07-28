@@ -2,7 +2,7 @@ exports.run = (bot, message, args, func) => {
   const ubll = [
     {
       name: 'Plugin',
-      value: '[Github Repo](https://github.com/Eluinhost/UBL)',
+      value: '[Spigot Direct Download](https://www.spigotmc.org/resources/autoubl.69498/download?version=284619)',
       inline: false
     },
     {
