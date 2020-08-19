@@ -118,9 +118,9 @@ exports.run = (bot) => {
                   for (let u = 0; u < pL.length; u++) {
                     logger.log('info', `Looping through discord post servers (#${u + 1} - ${pL[u]})`)
                     const srv = bot.guilds.get(pL[u])
-                    if (srv.id == null) {
+                    if (srv == null) {
                       db.set(`${variableIp.replace(/\./gi, '%').replace(/:/gi, '$')}.discordServers`, removeA(await pL, pL[u]))
-                      logger.log('info', `Server does not exist, removing from discordServers array for ${variableIp}`)
+                      return logger.log('info', `Server does not exist, removing from discordServers array for ${variableIp}`)
                     }
                     if (db.get(`${srv.id}.postChannel`) != null) {
                       logger.log('info', `Server (#${u + 1}) has post channel`)
@@ -176,7 +176,8 @@ exports.run = (bot) => {
                           .addField('Open Time', `${dd} UTC`, true)
                           .addField('Post', `https://hosts.uhc.gg/m/${rj[x].id}`, true)
                           .addField('Scenario(s)', rj[x].scenarios.toString().replace(/,/gi, ', '))
-                          .setFooter(`u/${rj[x].author}`)
+                          .setFooter(`u/${rj[x].author} | Opens`)
+                          .setTimestamp(syncrj)
                         if (db.get(`${pL[u]}.notifyRole`) != null) {
                           let prefixs = db.get(`prefix_${pL[u]}`)
                           if (!prefixs) { prefixs = 'm!' }

@@ -8,5 +8,8 @@ module.exports = {
       .setColor(color)
       .setDescription(message)
     channel.send({ embed })
+  },
+  rcolor: function () {
+    return parseInt(randomColor().replace(/#/gi, '0x'))
   }
 }
