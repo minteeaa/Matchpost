@@ -18,10 +18,11 @@
   "homepage": "https://github.com/XestraUHC/XestraBot#readme",
   "dependencies": {
     "date-and-time": "^0.6.3",
-    "discord.js": "^11.4.2",
+    "discord.js": "^11.6.4",
     "dotenv": "^6.2.0",
     "enmap": "^4.7.0",
     "fs": "0.0.1-security",
+    "googleapis": "^39.2.0",
     "got": "^9.3.2",
     "quick.db": "^7.0.0-b16",
     "randomcolor": "^0.5.3",

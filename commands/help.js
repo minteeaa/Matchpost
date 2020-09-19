@@ -39,6 +39,7 @@ exports.run = (bot, message, args) => {
       embed.setTimestamp()
       embed.setColor(0xadd8e6)
       embed.setAuthor(`${bot.user.username}'s Commands`, bot.user.avatarURL)
+      embed.setDescription('made by **mintea#0001**')
       embed.setFooter(`Requested by ${message.author.username}`, message.author.avatarURL)
       message.channel.send({ embed })
     })

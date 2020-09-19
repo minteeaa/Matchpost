@@ -4,16 +4,10 @@ exports.run = (bot, message, args, func) => {
   const srvs = []
   if (!sL) return func.embed(message.channel, 'No servers added, some should probably be added.')
   for (let x = 0; x < sL.length; x++) {
-    const pL = db.get(`serverList_${sL[x].replace('.', '-')}`)
-    if (pL !== null) {
-      if (typeof pL === 'number') {
-        if (pL === message.guild.id) {
-          srvs.push(sL[x])
-        }
-      } else if (typeof pL === 'object') {
-        if (pL.includes(message.guild.id)) {
-          srvs.push(sL[x])
-        }
+    const pL = db.get(`${sL[x].replace(/\./gi, '%').replace(/:/gi, '$')}.discordServers`)
+    if (pL != null && typeof pL === 'object') {
+      if (pL.includes(message.guild.id)) {
+        srvs.push(sL[x])
       }
     }
   }

@@ -4,4 +4,4 @@
 # Useful Links
 
 - [Support Server](https://discord.gg/xraYxJt)
-- [Docs](http://docs.zetari.xyz/matchpost)
+- [Docs](https://docs.mintea.pw/)
