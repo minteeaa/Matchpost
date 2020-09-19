@@ -168,14 +168,6 @@ exports.run = (bot) => {
                         }
                         const cl = '0x' + Math.floor(Math.random() * 16777215).toString(16)
                         const embed = new Discord.RichEmbed()
-                        let hn
-                        if (!rj[x].hostingName) {
-                          hn = rj[x].author
-                        } else {
-                          hn = rj[x].hostingName
-                        }
-                        let r = message.guild.roles.get(db.get(`mentionRole_${pL[u]}`))
-                        r.edit({mentionable: true})
                         embed.setAuthor(`${hn}'s #${rj[x].count}`)
                           .setColor(cl)
                           .addField('Team Size', ts, true)
@@ -184,10 +176,12 @@ exports.run = (bot) => {
                           .addField('Open Time', `${dd} UTC`, true)
                           .addField('Post', `https://hosts.uhc.gg/m/${rj[x].id}`, true)
                           .addField('Scenario(s)', rj[x].scenarios.toString().replace(/,/gi, ', '))
-                          .setFooter(`u/${rj[x].author}`)
-                        if (db.get(`mentionRole_${pL[u]}`) !== null) {
-                          srv.channels.get(db.get(`postChannel_${pL[u]}`)).send((`<@&${db.get(`mentionRole_${pL[u]}`)}> (Use the \`togglealerts\` command to toggle match post alerts)`))
-                          r.edit({mentionable: false})
+                          .setFooter(`u/${rj[x].author} | Opens`)
+                          .setTimestamp(syncrj)
+                        if (db.get(`${pL[u]}.notifyRole`) != null) {
+                          let prefixs = db.get(`prefix_${pL[u]}`)
+                          if (!prefixs) { prefixs = 'm!' }
+                          srv.channels.get(db.get(`${pL[u]}.postChannel`)).send((`<@&${db.get(`${pL[u]}.notifyRole`)}> (Use the \`${prefixs}togglealerts\` command to toggle match post alerts)`))
                         }
                         srv.channels.get(db.get(`${pL[u]}.postChannel`)).send({
                           embed
