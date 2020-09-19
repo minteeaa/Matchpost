@@ -168,6 +168,14 @@ exports.run = (bot) => {
                         }
                         const cl = '0x' + Math.floor(Math.random() * 16777215).toString(16)
                         const embed = new Discord.RichEmbed()
+                        let hn
+                        if (!rj[x].hostingName) {
+                          hn = rj[x].author
+                        } else {
+                          hn = rj[x].hostingName
+                        }
+                        let r = message.guild.roles.get(db.get(`mentionRole_${pL[u]}`))
+                        r.edit({mentionable: true})
                         embed.setAuthor(`${hn}'s #${rj[x].count}`)
                           .setColor(cl)
                           .addField('Team Size', ts, true)
@@ -179,13 +187,31 @@ exports.run = (bot) => {
                           .setFooter(`u/${rj[x].author} | Opens`)
                           .setTimestamp(syncrj)
                         if (db.get(`${pL[u]}.notifyRole`) != null) {
+                          var prv = db.get(`${srv.id}.webHook`)
                           let prefixs = db.get(`prefix_${pL[u]}`)
                           if (!prefixs) { prefixs = 'm!' }
-                          srv.channels.get(db.get(`${pL[u]}.postChannel`)).send((`<@&${db.get(`${pL[u]}.notifyRole`)}> (Use the \`${prefixs}togglealerts\` command to toggle match post alerts)`))
+                          if (!db.get(`${srv.id}.webHook`)) {
+                            srv.channels.get(db.get(`${pL[u]}.postChannel`)).send((`<@&${db.get(`${pL[u]}.notifyRole`)}> (Use the \`${prefixs}togglealerts\` command to toggle match post alerts)`))
+                          } else {
+                            const hook = new Discord.WebhookClient(prv.id, prv.token)
+                            hook.send((`<@&${db.get(`${pL[u]}.notifyRole`)}> (Use the \`${prefixs}togglealerts\` command to toggle match post alerts)`), {
+                              username: `${rj[x].hostingName}`,
+                              avatarURL: `https://minotar.net/helm/${rj[x].hostingName}/100.png`
+                            })
+                          }
                         }
-                        srv.channels.get(db.get(`${pL[u]}.postChannel`)).send({
-                          embed
-                        })
+                        if (db.get(`${srv.id}.webHook`)) {
+                          const hook = new Discord.WebhookClient(prv.id, prv.token)
+                          hook.send({
+                            username: `${rj[x].hostingName}`,
+                            avatarURL: `https://minotar.net/helm/${rj[x].hostingName}/100.png`,
+                            embeds: [embed]
+                          })
+                        } else {
+                          srv.channels.get(db.get(`${pL[u]}.postChannel`)).send({
+                            embed
+                          })
+                        }
                         db.set(`${srv.id}.${rj[x].id}.posted`, true)
                       }
                     } else if (db.get(`${pL[u]}.postChannel`) == null) {
