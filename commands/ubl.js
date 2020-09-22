@@ -1,6 +1,7 @@
 const fs = require('fs')
 const { google } = require('googleapis')
 const TOKEN_PATH = './token.json'
+const randomColor = require('randomcolor')
 exports.run = (bot, message, args, func) => {
   if (!args[0]) func.embed(message.channel, 'No query for UBL search.')
   else {
@@ -24,7 +25,6 @@ exports.run = (bot, message, args, func) => {
   }
 
   function searchUBL (auth, qu) {
-    let x = 0
     const sheets = google.sheets({ version: 'v4', auth })
     sheets.spreadsheets.values.get({
       spreadsheetId: '1VdyBZs4B-qoA8-IijPvbRUVBLfOuU9I5fV_PhuOWJao',
@@ -32,59 +32,58 @@ exports.run = (bot, message, args, func) => {
     }, (err, res) => {
       if (err) return console.log('The API returned an error: ' + err)
       const rows = res.data.values
+      let found = false
+      let str
       if (rows.length) {
         rows.map((row) => {
           if (row[0].toString() === qu) {
-            if (x === 0) {
-              message.channel.send({
-                embed: {
-                  author: {
-                    name: `${row[0]}'s Ban`,
-                    icon_url: bot.user.avatarURL
+            found = true
+            str = {
+              embed: {
+                author: {
+                  name: `${row[0]}'s Ban`,
+                  icon_url: bot.user.avatarURL
+                },
+                color: parseInt(randomColor().replace(/#/gi, '0x')),
+                fields: [
+                  {
+                    name: 'Reason',
+                    value: row[2]
                   },
-                  color: func.rcolor,
-                  fields: [
-                    {
-                      name: 'Reason',
-                      value: row[2]
-                    },
-                    {
-                      name: 'Date',
-                      value: row[3],
-                      inline: true
-                    },
-                    {
-                      name: 'Length',
-                      value: row[4],
-                      inline: true
-                    },
-                    {
-                      name: 'Expiry Date',
-                      value: row[5]
-                    },
-                    {
-                      name: 'Case',
-                      value: row[6]
-                    }
-                  ],
-                  footer: {
-                    text: `Requested by ${message.author.username}`,
-                    icon_url: message.author.avatarURL
+                  {
+                    name: 'Date',
+                    value: row[3],
+                    inline: true
+                  },
+                  {
+                    name: 'Length',
+                    value: row[4],
+                    inline: true
+                  },
+                  {
+                    name: 'Expiry Date',
+                    value: row[5]
+                  },
+                  {
+                    name: 'Case',
+                    value: row[6]
                   }
+                ],
+                footer: {
+                  text: `Requested by ${message.author.username}`,
+                  icon_url: message.author.avatarURL
                 }
-              })
-              return x++
+              }
             }
           } else {
-            if (x === 0) {
-              func.embed(message.channel, 'The user specified is not on the Ban List.')
-              return x++
-            }
+            if (found === false) str = 'The user specified is not on the Ban List.'
           }
         })
       } else {
         return func.embed(message.channel, 'An error occurred while getting data.')
       }
+      if (typeof str === 'object') message.channel.send(str)
+      else func.embed(message.channel, str)
     })
   }
 }
