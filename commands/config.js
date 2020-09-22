@@ -4,9 +4,11 @@ exports.run = (bot, message, args, func) => {
   const color = parseInt(randomColor().replace(/#/gi, '0x'))
   const pc = db.fetch(`${message.guild.id}.postChannel`)
   const nr = db.fetch(`${message.guild.id}.notifyRole`)
+  const wb = db.fetch(`${message.guild.id}.webHook`)
   const ps = db.fetch('postServers')
   let nrt
   let pct
+  let wbs
   let srvst
   const srvs = []
   if (!ps) srvst = 'None'
@@ -24,6 +26,8 @@ exports.run = (bot, message, args, func) => {
   }
   if (srvs.length === 0) srvst = 'None'
   else srvst = srvs.join(', ')
+  if (!wb) wbs = 'Not setup'
+  else wbs = 'Setup'
   if (!nr) nrt = 'None'
   else nrt = `<@&${nr}>`
   if (!pc) pct = 'None'
@@ -42,6 +46,10 @@ exports.run = (bot, message, args, func) => {
       {
         name: 'Notify Role',
         value: nrt
+      },
+      {
+        name: 'Webhooks',
+        value: wbs
       },
       {
         name: 'Server List',
