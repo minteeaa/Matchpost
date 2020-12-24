@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/XestraUHC/XestraBot#readme",
   "dependencies": {
-    "date-and-time": "^0.6.3",
+    "date-and-time": "^0.14.2",
     "discord.js": "^11.6.4",
     "dotenv": "^6.2.0",
     "enmap": "^4.7.0",
