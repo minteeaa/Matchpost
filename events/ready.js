@@ -138,6 +138,12 @@ exports.run = (bot) => {
                         }
                       } else if (db.get(`${srv.id}.${rj[x].id}.posted`) !== true) {
                         logger.log('info', 'Match has not been posted.')
+                        let hn
+                        if (!rj[x].hostingName) {
+                          hn = rj[x].author
+                        } else {
+                          hn = rj[x].hostingName
+                        }
                         if (rj[x].removed === true) return logger.log('info', `Said match has been cancelled. (${hn}'s #${rj[x].count})`)
                         logger.log('info', 'Generating match post.')
                         let ts
@@ -168,14 +174,8 @@ exports.run = (bot) => {
                         }
                         const cl = '0x' + Math.floor(Math.random() * 16777215).toString(16)
                         const embed = new Discord.RichEmbed()
-                        let hn
-                        if (!rj[x].hostingName) {
-                          hn = rj[x].author
-                        } else {
-                          hn = rj[x].hostingName
-                        }
-                        let r = message.guild.roles.get(db.get(`mentionRole_${pL[u]}`))
-                        r.edit({mentionable: true})
+                        const r = srv.roles.get(db.get(`${pL[u]}.notifyRole`))
+                        r.edit({ mentionable: true })
                         embed.setAuthor(`${hn}'s #${rj[x].count}`)
                           .setColor(cl)
                           .addField('Team Size', ts, true)

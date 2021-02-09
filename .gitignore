@@ -1,3 +1,8 @@
 node_modules/
 json.sqlite
 .env
+credentials.json
+gen.js
+logs/matchpost/error-1.log
+logs/matchpost/output-1.log
+token.json
