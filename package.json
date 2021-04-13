@@ -1,21 +1,21 @@
 {
-  "name": "xestrabot",
-  "version": "1.0.0",
-  "description": "The XestraUHC discord bot.",
-  "main": "index.js",
+  "name": "Matchpost",
+  "version": "0.8.6",
+  "description": "A UHC Calendar bot.",
+  "main": "bot.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/XestraUHC/XestraBot.git"
+    "url": "git+https://github.com/minteeaa/Matchpost.git"
   },
-  "author": "Zetari",
-  "license": "ISC",
+  "author": "mintea",
+  "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/XestraUHC/XestraBot/issues"
+    "url": "https://github.com/minteeaa/Matchpost/issues"
   },
-  "homepage": "https://github.com/XestraUHC/XestraBot#readme",
+  "homepage": "https://github.com/minteeaa/Matchpost#readme",
   "dependencies": {
     "date-and-time": "^0.14.2",
     "discord.js": "^12.5.3",
