@@ -4,10 +4,10 @@ exports.run = async (bot, message, args, func) => {
   const embed = new Discord.MessageEmbed()
   const cl = '0x' + Math.floor(Math.random() * 16777215).toString(16).toUpperCase()
   if (!db.get(`${message.guild.id}.notifyRole`)) return func.embed(message.channel, 'There is no notification role set currently.')
-  const role = await message.guild.roles.find(r => r.id === db.get(`${message.guild.id}.notifyRole`))
-  if (message.member.roles.find(r => r.id === db.get(`${message.guild.id}.notifyRole`))) {
+  const role = await message.guild.roles.cache.find(r => r.id === db.get(`${message.guild.id}.notifyRole`))
+  if (message.member.roles.cache.find(r => r.id === db.get(`${message.guild.id}.notifyRole`))) {
     try {
-      await message.member.removeRole(role)
+      await message.member.roles.remove(role)
       embed.setDescription('Your match notifications have been toggled off.')
       embed.setColor(cl)
       embed.setFooter(message.author.username)
@@ -26,9 +26,9 @@ exports.run = async (bot, message, args, func) => {
       console.log(e.message)
     }
   }
-  if (!message.member.roles.find(r => r.id === db.get(`${message.guild.id}.notifyRole`))) {
+  if (!message.member.roles.cache.find(r => r.id === db.get(`${message.guild.id}.notifyRole`))) {
     try {
-      await message.member.addRole(role)
+      await message.member.roles.add(role)
       embed.setDescription('Your match notifications have been toggled on.')
       embed.setColor(cl)
       embed.setFooter(message.author.username)

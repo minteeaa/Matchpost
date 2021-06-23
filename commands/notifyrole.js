@@ -1,14 +1,14 @@
 const db = require('quick.db')
 exports.run = (bot, message, args, func) => {
   let nc
-  if (!message.member.hasPermission('ADMINISTRATOR')) return func.embed(message.channel, 'You require a role with the permission `Administrator` to use that.')
+  if (!message.member.permissions.has('ADMINISTRATOR')) return func.embed(message.channel, 'You require a role with the permission `Administrator` to use that.')
   if (!args[0]) return func.embed(message.channel, 'No args specified.')
   if (args[0] === 'clear') {
     db.delete(`${message.guild.id}.notifyRole`)
     return func.embed(message.channel, 'Removed notification role.')
   }
   let nr
-  message.guild.roles.map(r => {
+  message.guild.roles.cache.map(r => {
     if (r.name === args[0]) {
       nr = r.id
     }

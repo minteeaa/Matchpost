@@ -1,6 +1,6 @@
 const db = require('quick.db')
 exports.run = (bot, message, args, func) => {
-  if (!message.member.hasPermission('ADMINISTRATOR')) return func.embed(message.channel, 'You require a role with the permission `Administrator` to use that.')
+  if (!message.member.permissions.has('ADMINISTRATOR')) return func.embed(message.channel, 'You require a role with the permission `Administrator` to use that.')
   if (!args[0]) {
     return func.embed(message.channel, 'No args specfied.')
   }
