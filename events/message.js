@@ -15,6 +15,7 @@ exports.run = (bot, message) => {
   let prefix = db.get(`prefix_${message.guild.id}`)
   if (!prefix) {
     prefix = 'm!'
+    db.set(`prefix_${message.guild.id}`, prefix)
   }
   if (!message.content.startsWith(prefix)) return
   const command = message.content.split(' ')[0].slice(prefix.length)
@@ -28,6 +29,8 @@ exports.run = (bot, message) => {
   if (cmd) {
     logger.log('info', `[${message.guild.name}] ${message.author.username}#${message.author.discriminator} > ${prefix}${command} ${args.toString().replace(/,/gi, ' ')}`)
     cmd.run(bot, message, args, func)
+  } else if (command === '') {
+    return
   } else {
     message.react('❌')
   }

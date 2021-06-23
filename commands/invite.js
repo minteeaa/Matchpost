@@ -1,5 +1,5 @@
 exports.run = (bot, message, args, func) => {
-  func.embed(message.channel, 'Invite link: https://bit.ly/2G8kL9o')
+  func.embed(message.channel, '[Invite link](https://discord.com/oauth2/authorize?client_id=512063812405297177&scope=bot&permissions=8)')
 }
 
 exports.conf = {
