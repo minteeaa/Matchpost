@@ -117,7 +117,7 @@ exports.run = (bot) => {
                   const pL = db.get(`${variableIp.replace(/\./gi, '%').replace(/:/gi, '$')}.discordServers`)
                   for (let u = 0; u < pL.length; u++) {
                     logger.log('info', `Looping through discord post servers (#${u + 1} - ${pL[u]})`)
-                    const srv = bot.guilds.get(pL[u])
+                    const srv = bot.guilds.cache.get(pL[u])
                     if (srv == null) {
                       db.set(`${variableIp.replace(/\./gi, '%').replace(/:/gi, '$')}.discordServers`, removeA(await pL, pL[u]))
                       return logger.log('info', `Server does not exist, removing from discordServers array for ${variableIp}`)
@@ -130,7 +130,7 @@ exports.run = (bot) => {
                           logger.log('info', 'Match has been removed since post.')
                           if (db.get(`${rj[x].id}.cancelMessageSent` !== true)) {
                             logger.log('info', 'Sending cancel message.')
-                            srv.channels.get(db.get(`${pL[u]}.postChannel`)).send(`Match cancelled: \`${rj[x].removedReason}\``)
+                            srv.channels.cache.get(db.get(`${pL[u]}.postChannel`)).send(`Match cancelled: \`${rj[x].removedReason}\``)
                             db.set(`${rj[x].id}.cancelMessageSent`, true)
                           } else {
                             logger.log('info', 'Match cancel message has already been posted.')
@@ -173,8 +173,8 @@ exports.run = (bot) => {
                           }
                         }
                         const cl = '0x' + Math.floor(Math.random() * 16777215).toString(16)
-                        const embed = new Discord.RichEmbed()
-                        const r = srv.roles.get(db.get(`${pL[u]}.notifyRole`))
+                        const embed = new Discord.MessageEmbed()
+                        const r = srv.roles.cache.get(db.get(`${pL[u]}.notifyRole`))
                         r.edit({ mentionable: true })
                         embed.setAuthor(`${hn}'s #${rj[x].count}`)
                           .setColor(cl)
@@ -191,7 +191,7 @@ exports.run = (bot) => {
                           let prefixs = db.get(`prefix_${pL[u]}`)
                           if (!prefixs) { prefixs = 'm!' }
                           if (!db.get(`${srv.id}.webHook`)) {
-                            srv.channels.get(db.get(`${pL[u]}.postChannel`)).send((`<@&${db.get(`${pL[u]}.notifyRole`)}> (Use the \`${prefixs}togglealerts\` command to toggle match post alerts)`))
+                            srv.channels.cache.get(db.get(`${pL[u]}.postChannel`)).send((`<@&${db.get(`${pL[u]}.notifyRole`)}> (Use the \`${prefixs}togglealerts\` command to toggle match post alerts)`))
                           } else {
                             const hook = new Discord.WebhookClient(prv.id, prv.token)
                             hook.send((`<@&${db.get(`${pL[u]}.notifyRole`)}> (Use the \`${prefixs}togglealerts\` command to toggle match post alerts)`), {
@@ -208,7 +208,7 @@ exports.run = (bot) => {
                             embeds: [embed]
                           })
                         } else {
-                          srv.channels.get(db.get(`${pL[u]}.postChannel`)).send({
+                          srv.channels.cache.get(db.get(`${pL[u]}.postChannel`)).send({
                             embed
                           })
                         }

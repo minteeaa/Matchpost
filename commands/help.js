@@ -19,7 +19,7 @@ exports.run = (bot, message, args) => {
         }
       })
       const x = []
-      const embed = new Discord.RichEmbed()
+      const embed = new Discord.MessageEmbed()
       bot.commands.map(c => {
         if (!x[c.help.group]) {
           x[c.help.group] = []
@@ -44,7 +44,7 @@ exports.run = (bot, message, args) => {
       message.channel.send({ embed })
     })
   } else {
-    const embed = new Discord.RichEmbed()
+    const embed = new Discord.MessageEmbed()
     let command = args[0]
     if (bot.commands.has(command)) {
       command = bot.commands.get(command)

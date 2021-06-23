@@ -4,7 +4,7 @@ module.exports = {
 
   embed: function (channel, message) {
     const color = parseInt(randomColor().replace(/#/gi, '0x'))
-    const embed = new Discord.RichEmbed()
+    const embed = new Discord.MessageEmbed()
       .setColor(color)
       .setDescription(message)
     channel.send({ embed })

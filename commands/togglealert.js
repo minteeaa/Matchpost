@@ -1,7 +1,7 @@
 const db = require('quick.db')
 const Discord = require('discord.js')
 exports.run = async (bot, message, args, func) => {
-  const embed = new Discord.RichEmbed()
+  const embed = new Discord.MessageEmbed()
   const cl = '0x' + Math.floor(Math.random() * 16777215).toString(16).toUpperCase()
   if (!db.get(`${message.guild.id}.notifyRole`)) return func.embed(message.channel, 'There is no notification role set currently.')
   const role = await message.guild.roles.find(r => r.id === db.get(`${message.guild.id}.notifyRole`))
