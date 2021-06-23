@@ -12,6 +12,9 @@ const logger = createLogger({
   transports: [new transports.Console()]
 })
 exports.run = (bot, message) => {
+  if (message.content === `<@!${bot.user.id}>`) {
+    return func.embed(message.channel, `The prefix for this server is \`${db.get(`prefix_${message.guild.id}`)}\`.`)
+  }
   let prefix = db.get(`prefix_${message.guild.id}`)
   if (!prefix) {
     prefix = 'm!'
